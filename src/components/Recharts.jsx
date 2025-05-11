@@ -9,7 +9,22 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts'
+/*
+**Interview**
+Good afternoon!
+Could you please confirm if you are ready to complete the test task as specified in our job description?
+You will need to modify the example at [http://recharts.org/en-US/examples/SimpleLineChart](http://recharts.org/en-US/examples/SimpleLineChart) — highlight all sections of the chart where the absolute value of the z-score > 1 in red. The color of the chart points should match the color of the section.
+Reference for z-score calculation: [https://en.wikipedia.org/wiki/Standard\_score](https://en.wikipedia.org/wiki/Standard_score)
 
+Please send the result of the test task to **[v.goncharova@makves.ru](mailto:v.goncharova@makves.ru)**:
+
+1. A link to the visual result (deployed project)
+2. A link to the GitHub repository with the source code
+
+We will only consider resumes that include both links!
+We recommend not using ChatGPT, as it provides incorrect solutions.
+Time to complete the task: **1 week**
+    */
 const data = [
   {
     name: 'Page A',
