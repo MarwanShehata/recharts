@@ -126,7 +126,70 @@ export default function Recharts() {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
-        <Tooltip />
+        <Tooltip
+          contentStyle={{
+            borderRadius: '10px',
+            color: 'black',
+          }}
+          content={({ active, payload, label }) => {
+            if (!active || !payload || !payload.length) return null
+
+            return (
+              <div
+                style={{
+                  backgroundColor: '#fff',
+                  padding: '10px',
+                  border: '1px solid #ccc',
+                  borderRadius: '10px',
+                  color: '#000',
+                }}
+              >
+                <p
+                  style={{ margin: '0 0 5px', fontWeight: 'bold' }}
+                >{`${label}`}</p>
+                {payload.map((entry, index) => {
+                  const dataKey = entry.dataKey
+                  let mean, stdDev
+
+                  if (dataKey === 'uv') {
+                    mean = uvMean
+                    stdDev = uvStdDev
+                  } else if (dataKey === 'pv') {
+                    mean = pvMean
+                    stdDev = pvStdDev
+                  } else {
+                    return <p key={index}>{`${dataKey}: ${entry.value}`}</p>
+                  }
+
+                  const zScore = calculateZScore(entry.value, mean, stdDev)
+                  const isHighlighted = isOutlier(zScore)
+
+                  return (
+                    <p
+                      key={index}
+                      style={{
+                        margin: '0',
+                        color: entry.color,
+                      }}
+                    >
+                      <span>{`${dataKey}: ${entry.value}`}</span>
+                      <br />
+                      <span
+                        style={{
+                          color: isHighlighted ? '#ff0000' : '#666',
+                          fontWeight: isHighlighted ? 'bold' : 'normal',
+                        }}
+                      >
+                        {`z-score: ${zScore.toFixed(2)}`}
+                        {isHighlighted && ' (!)'}
+                      </span>
+                    </p>
+                  )
+                })}
+              </div>
+            )
+          }}
+        />
         <Legend />
         <Line
           type="monotone"
